@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .display-area {
+            width: 200px;
+            height: 200px;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .display-area img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: inherit;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .circle {
+            border-radius: 50%;
+        }
+
+        .square {
+            border-radius: 0;
+        }
+
+        .triangle {
+            clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+        }
+
+        .red-border {
+            border-color: red;
+        }
+
+        .yellow-border {
+            border-color: yellow;
+        }
+
+        .green-border {
+            border-color: green;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        select {
+            margin-top: 5px;
+        }
+
+        .submit-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <!-- Input form -->
+    <form id="settings-form">
+        <label for="image-select">Pilih Foto:</label>
+        <select id="image-select">
+            <option value="image1">Image 1</option>
+            <option value="image2">Image 2</option>
+            <option value="image3">Image 3</option>
+        </select>
+  
+        <label for="shape-select">Pilih Bentuk:</label>
+        <select id="shape-select">
+            <option value="circle">Circle</option>
+            <option value="square">Square</option>
+            <option value="triangle">Triangle</option>
+        </select>
+  
+        <label for="border-color-select">Pilih Warna Border:</label>
+        <select id="border-color-select">
+            <option value="red">Merah</option>
+            <option value="yellow">Kuning</option>
+            <option value="green">Hijau</option>
+        </select>
+
+        <label for="opacity-select">Pilih Opacity:</label>
+        <select id="opacity-select">
+            <option value="0.2">0.2</option>
+            <option value="0.5">0.5</option>
+        </select>
+
+        
+        <button type="button" class="submit-button" onclick="applyChanges()">Kirim</button>
+    </form>
+  
+    <!-- Display area -->
+    <div class="display-area">
+        <img src="img/tokyo.jpeg" alt="Image" id="display-image">
+    </div>
+  
+    <script>
+        function applyChanges() {
+            const imageSelect = document.getElementById('image-select');
+            const shapeSelect = document.getElementById('shape-select');
+            const borderColorSelect = document.getElementById('border-color-select');
+            const opacitySelect = document.getElementById('opacity-select');
+            const displayImage = document.getElementById('display-image');
+            const displayArea = document.querySelector('.display-area');
+
+            const selectedImage = imageSelect.value;
+            if (selectedImage === 'image1') {
+                displayImage.src = 'img/bali.jpeg';
+            } else if (selectedImage === 'image2') {
+                displayImage.src = 'img/jogja.jpeg';
+            } else if (selectedImage === 'image3') {
+                displayImage.src = 'img/tokyo.jpeg';
+            }
+
+            const selectedShape = shapeSelect.value;
+            displayArea.classList.remove('circle', 'square', 'triangle');
+            displayArea.classList.add(selectedShape);
+
+            const selectedBorderColor = borderColorSelect.value;
+            displayArea.classList.remove('red-border', 'yellow-border', 'green-border');
+            displayArea.classList.add('${selectedBorderColor}-border');
+
+            const selectedOpacity = opacitySelect.value;
+            displayImage.style.opacity = selectedOpacity;
+
+        }
+    </script>
+</body>
+</html>
